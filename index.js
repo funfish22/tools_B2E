@@ -13,7 +13,7 @@ app.use(cors());
 const lists = require('./routes/api/lists');
 
 router.get('/', async ctx => {
-    ctx.body = { msg: 'Hello Koa Interfaces' };
+    ctx.body = { msg: 'Hello Koa Interfaces test' };
 });
 
 const db = require('./config/keys').mongoURI;
