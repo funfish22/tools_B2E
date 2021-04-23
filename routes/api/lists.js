@@ -5,6 +5,17 @@ const List = require('../../models/List');
 const $ = require('cheerio');
 const puppeteer = require('puppeteer');
 
+const chromeOptions = {
+    headless: true,
+    defaultViewport: null,
+    args: [
+        "--incognito",
+        "--no-sandbox",
+        "--single-process",
+        "--no-zygote"
+    ],
+};
+
 router.get('/', async ctx => {
     await List.find()
     .then(lists => {
@@ -21,10 +32,7 @@ router.post(
     '/add',
     async ctx => {
 
-        const browser = await puppeteer.launch({
-            headless: false,
-            args: ['--no-sandbox', '--disable-setuid-sandbox'],
-        });
+        const browser = await puppeteer.launch(chromeOptions);
         // 開啟新分頁
         const page = await browser.newPage();
         // 進入指定頁面
