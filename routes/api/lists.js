@@ -38,15 +38,16 @@ router.post(
         // 進入指定頁面
         await page.goto(ctx.request.body.data);
         const html = await page.content();
-        const books = $('#qrcode', html);
+        let books = $('#qrcode', html);
+        if($('#qrcode').length === 0) {
+            books = $('#app_code', html)
+        }
         let img = books.find('img').attr('src')
         browser.close();
 
         const newList = new List({
             data: img
         });
-
-        console.log('books', books)
 
         await newList
         .save()
