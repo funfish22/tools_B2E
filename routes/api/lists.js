@@ -39,7 +39,7 @@ router.post(
         await page.goto(ctx.request.body.data);
         const html = await page.content();
         let books = $('#qrcode', html);
-        if($('#qrcode').length === 0) {
+        if(books.length === 0) {
             books = $('#app_code', html)
         }
         let img = books.find('img').attr('src')
